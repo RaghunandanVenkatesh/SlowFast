@@ -109,6 +109,8 @@ def run_visualization(vis_loader, model, cfg, writer=None):
             inputs = du.all_gather_unaligned(inputs)
             activations = du.all_gather_unaligned(activations)
             preds = du.all_gather_unaligned(preds)
+            print("************************************Sri*******")
+            print(preds)
             if isinstance(inputs[0], list):
                 for i in range(len(inputs)):
                     for j in range(len(inputs[0])):

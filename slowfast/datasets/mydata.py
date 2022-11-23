@@ -28,9 +28,9 @@ logger = logging.get_logger(__name__)
 
 
 @DATASET_REGISTRY.register()
-class Kinetics(torch.utils.data.Dataset):
+class Mydata(torch.utils.data.Dataset):
     """
-    Kinetics video loader. Construct the Kinetics video loader, then sample
+    Mydata video loader. Construct the Mydata video loader, then sample
     clips from the videos. For training and validation, a single clip is
     randomly sampled from every video with random cropping, scaling, and
     flipping. For testing, multiple clips are uniformaly sampled from every
@@ -41,7 +41,7 @@ class Kinetics(torch.utils.data.Dataset):
 
     def __init__(self, cfg, mode, num_retries=100):
         """
-        Construct the Kinetics video loader with a given csv file. The format of
+        Construct the Mydata video loader with a given csv file. The format of
         the csv file is:
         ```
         path_to_video_1 label_1
@@ -63,10 +63,9 @@ class Kinetics(torch.utils.data.Dataset):
             "train",
             "val",
             "test",
-        ], "Split '{}' not supported for Kinetics".format(mode)
+        ], "Split '{}' not supported for Mydata".format(mode)
         self.mode = mode
         self.cfg = cfg
-        self._num_classes = cfg.MODEL.NUM_CLASSES
         self.p_convert_gray = self.cfg.DATA.COLOR_RND_GRAYSCALE
         self.p_convert_dt = self.cfg.DATA.TIME_DIFF_PROB
         self._video_meta = {}
@@ -91,7 +90,7 @@ class Kinetics(torch.utils.data.Dataset):
                 cfg.TEST.NUM_ENSEMBLE_VIEWS * cfg.TEST.NUM_SPATIAL_CROPS
             )
 
-        logger.info("Constructing Kinetics {}...".format(mode))
+        logger.info("Constructing Mydata {}...".format(mode))
         self._construct_loader()
         self.aug = False
         self.rand_erase = False
@@ -153,7 +152,7 @@ class Kinetics(torch.utils.data.Dataset):
                     self._video_meta[clip_idx * self._num_clips + idx] = {}
         assert (
             len(self._path_to_videos) > 0
-        ), "Failed to load Kinetics split {} from {}".format(
+        ), "Failed to load Mydata split {} from {}".format(
             self._split_idx, path_to_file
         )
         logger.info(

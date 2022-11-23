@@ -46,7 +46,7 @@ _C.CONTRASTIVE.INTERP_MEMORY = False
 _C.CONTRASTIVE.MEM_TYPE = "1d"
 
 # number of classes for online kNN evaluation
-_C.CONTRASTIVE.NUM_CLASSES_DOWNSTREAM = 400
+_C.CONTRASTIVE.NUM_CLASSES_DOWNSTREAM = 13
 
 # use an MLP projection with these num layers
 _C.CONTRASTIVE.NUM_MLP_LAYERS = 1
@@ -394,7 +394,7 @@ _C.MODEL.ARCH = "slowfast"
 _C.MODEL.MODEL_NAME = "SlowFast"
 
 # The number of classes to predict for the model.
-_C.MODEL.NUM_CLASSES = 400
+_C.MODEL.NUM_CLASSES = 13
 
 # Loss function.
 _C.MODEL.LOSS_FUNC = "cross_entropy"

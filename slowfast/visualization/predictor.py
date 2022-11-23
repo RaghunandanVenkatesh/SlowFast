@@ -7,7 +7,8 @@ import torch
 from detectron2 import model_zoo
 from detectron2.config import get_cfg
 from detectron2.engine import DefaultPredictor
-
+import pandas as pd
+import numpy as np
 import slowfast.utils.checkpoint as cu
 from slowfast.datasets import cv2_transform
 from slowfast.models import build_model
@@ -61,6 +62,8 @@ class Predictor:
             task = self.object_detector(task)
 
         frames, bboxes = task.frames, task.bboxes
+        print("************************************Sri-BBBox*******")
+        print(bboxes)
         if bboxes is not None:
             bboxes = cv2_transform.scale_boxes(
                 self.cfg.DATA.TEST_CROP_SIZE,
@@ -102,6 +105,9 @@ class Predictor:
             preds = torch.tensor([])
         else:
             preds = self.model(inputs, bboxes)
+        print("************************************SriPreds*******")
+        print(preds)
+        print(preds.shape)
 
         if self.cfg.NUM_GPUS:
             preds = preds.cpu()
@@ -109,6 +115,12 @@ class Predictor:
                 bboxes = bboxes.detach().cpu()
 
         preds = preds.detach()
+        t_np = preds.numpy() #convert to Numpy array
+#         np.savetxt("/workspace/slowfast/predictions.txt", t_np)
+#         df = pd.DataFrame(t_np) #convert to a dataframe
+#         df.to_csv("/workspace/slowfast/predictions.csv",index=False)
+        with open("/workspace/slowfast/predictions.txt", "a") as f:
+            f.write(str(np.argmax(t_np)))
         task.add_action_preds(preds)
         if bboxes is not None:
             task.add_bboxes(bboxes[:, 1:])

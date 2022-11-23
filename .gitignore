@@ -1,0 +1,9 @@
+*__pycache__*
+checkpoints
+pretrained
+data
+build
+*.ipynb_checkpoints*
+runs-mydata
+*.log
+*egg-info*
