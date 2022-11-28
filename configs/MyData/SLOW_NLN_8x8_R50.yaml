@@ -2,7 +2,7 @@ TRAIN:
   ENABLE: True
   DATASET: mydata
   BATCH_SIZE: 16
-  EVAL_PERIOD: 1
+  EVAL_PERIOD: 10
   CHECKPOINT_PERIOD: 1
   AUTO_RESUME: True
 DATA:
@@ -40,22 +40,24 @@ BN:
 SOLVER:
   BASE_LR: 0.1
   LR_POLICY: cosine
-  MAX_EPOCH: 205
+  MAX_EPOCH: 200
   MOMENTUM: 0.9
   WEIGHT_DECAY: 1e-4
   WARMUP_EPOCHS: 34.0
   WARMUP_START_LR: 0.01
   OPTIMIZING_METHOD: sgd
 MODEL:
-  NUM_CLASSES: 13
+  NUM_CLASSES: 7
   ARCH: slow
   MODEL_NAME: ResNet
   LOSS_FUNC: cross_entropy
   DROPOUT_RATE: 0.5
 TEST:
-  ENABLE: True
+  ENABLE: False
   DATASET: mydata
   BATCH_SIZE: 16
+  CHECKPOINT_FILE_PATH: "/workspace/slowfast/checkpoints/checkpoint_epoch_00160.pyth"
+  SAVE_RESULTS_PATH: "output1.pkl"
 DEMO:
   ENABLE: False
   LABEL_FILE_PATH: /workspace/slowfast/data/MyData/classids.json
